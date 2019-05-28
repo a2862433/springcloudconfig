@@ -1,9 +1,27 @@
 spring:
   application:
-    name: service-provider
+    name: service-consumer
 
 server:
   port: 8013
+
+
+feign:
+  hystrix:
+    enabled: true #开启熔断器
+
+ribbon:
+  ReadTimeout: 30000 # 请求处理超时时间 -- 超过5秒服务没有返回，就进入了断路器
+  ConnectTimeout: 2000 # 请求连接超时时间
+  OKToRetryOnAllOperations: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000 # 断路器超时时间
 
 eureka:
   client:
